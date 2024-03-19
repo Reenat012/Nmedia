@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Nmedia</string>
     <string name="nmedia">Nmedia!</string>
-    <string name="likes">14</string>
+    <string name="likes">15</string>
     <string name="repost">3</string>
     <string name="views">500</string>
 </resources>
