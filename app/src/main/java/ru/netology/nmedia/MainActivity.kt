@@ -25,14 +25,23 @@ class MainActivity : AppCompatActivity() {
             tvPublished.text = post.published
             tvContent.text= post.content
             if (post.likedByMe) {
-                ivLikes?.setImageResource(R.drawable.like_svgrepo_com)
+                ivLikes?.setImageResource(R.drawable.like_svgrepo_com__1_)
             }
 
-            ivLikes?.setOnClickListener{
-                post.likedByMe = !post.likedByMe
+            var counterLikes = 0
+
+            ivLikes.setOnClickListener{
+                post.likedByMe = !post.likedByMe //меняем false на true
                 ivLikes.setImageResource(
-                    if (post.likedByMe) R.drawable.like_svgrepo_com else R.drawable.like_svgrepo_com__1_
+                    if (post.likedByMe) {
+                        R.drawable.like_svgrepo_com__1_
+                        counterLikes++
+                    } else {
+                        R.drawable.like_svgrepo_com
+                        counterLikes--
+                    }
                 )
+                tvLikes.text = counterLikes.toString()
             }
         }
     }

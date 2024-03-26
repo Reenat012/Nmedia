@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Nmedia</string>
     <string name="nmedia">Nmedia!</string>
-    <string name="likes" translatable="false">15</string>
+    <string name="likes" translatable="false">0</string>
     <string name="repost" translatable="false">3</string>
     <string name="views" translatable="false">500</string>
     <string name="published" translatable="false">21 мая в 18:36</string>
