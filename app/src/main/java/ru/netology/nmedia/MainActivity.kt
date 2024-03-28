@@ -24,7 +24,9 @@ class MainActivity : AppCompatActivity() {
             content = "Привет, это новая Нетология! Когда-то Нетология начиналась с интенсивов по онлайн-маркетингу. Затем появились курсы по дизайну, разработке, аналитике и управлению. Мы растём сами и помогаем расти студентам: от новичков до уверенных профессионалов. Но самое важное остаётся с нами: мы верим, что в каждом уже есть сила, которая заставляет хотеть больше, целиться выше, бежать быстрее. Наша миссия — помочь встать на путь роста и начать цепочку перемен → http://netolo.gy/fyb",
             published = "21 мая в 18:36",
             likedByMe = false,
-            likes = 3_100_200,
+            likes = 999,
+            reposts = 999,
+            views = 3_123_123
         )
 
         val service = WallService()
@@ -37,11 +39,13 @@ class MainActivity : AppCompatActivity() {
             if (post.likedByMe) {
                 ivLikes?.setImageResource(like_svgrepo_com__1_)
             }
-            tvLikes.text = post.likes.toString()
-            tvRepost.text = post.reposts.toString()
-            tvViews.text = post.views.toString()
 
-            var counterLikes = 0
+            //начальный вывод числа до клика
+            tvLikes.text = service.amount(post.likes)
+            tvRepost.text = service.amount(post.reposts)
+            tvViews.text = service.amount(post.views)
+
+            var counterLikes = post.likes
 
             ivLikes?.setOnClickListener {
                 post.likedByMe = !post.likedByMe
@@ -53,16 +57,18 @@ class MainActivity : AppCompatActivity() {
                 } else {
                     if (counterLikes > 0) counterLikes--
                 }
-                tvLikes.text = counterLikes.toString()
+                //вывод числа лайков после клика
+                tvLikes.text = service.amount(counterLikes)
             }
 
-            var countReposts = 0
+            var countReposts = post.reposts
 
             ivRepost.setOnClickListener {
                 countReposts++
-                tvRepost.text = countReposts.toString()
+                tvRepost.text = service.amount(countReposts)
             }
-            tvLikes.text = service.amount(post.likes)
+            //вывод числа после клика
+            tvViews.text = service.amount(post.views)
         }
     }
 }
@@ -80,6 +86,7 @@ data class Post(
 )
 
 class WallService {
+    //функция для правильного отображения лайков, репостов, просмотров
     fun amount(likes: Int): String {
         val df = DecimalFormat("#.#") //функция для ограничения двойного числа до 2-х десятичных точек с использованием шаблона #.##
         df.roundingMode = RoundingMode.DOWN
