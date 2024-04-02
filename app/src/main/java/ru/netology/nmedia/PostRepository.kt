@@ -27,7 +27,7 @@ class PostRepositoryMemoryInImpl : PostRepository {
     override fun like() {
         post = post.copy(
             likedByMe = !post.likedByMe,
-            likes = if (!post.likedByMe) countLikes++ else countLikes--
+            likes = if (!post.likedByMe) post.likes + 1 else post.likes - 1
         )
         data.value = post.copy()
     }
