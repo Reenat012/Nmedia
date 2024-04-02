@@ -21,7 +21,6 @@ class PostRepositoryMemoryInImpl : PostRepository {
         views = 3_123_123
     )
     private val data = MutableLiveData(post)
-    private var countLikes = post.likes
     private var countReposts = post.reposts
     override fun get(): LiveData<Post> = data
     override fun like() {
