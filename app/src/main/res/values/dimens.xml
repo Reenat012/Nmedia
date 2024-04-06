@@ -4,7 +4,8 @@
     <dimen name="avatar_dimension">60dp</dimen>
     <dimen name="indent_dimension">5dp</dimen>
     <dimen name="margin_start">10dp</dimen>
-    <dimen name="common_spacing">16dp</dimen>
+    <dimen name="common_spacing">10dp</dimen>
     <dimen name="icons_size">24dp</dimen>
     <dimen name="size_likes">32dp</dimen>
+    <dimen name="padding">16dp</dimen>
 </resources>
