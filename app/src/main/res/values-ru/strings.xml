@@ -2,4 +2,5 @@
 <resources>
     <string name="app_name">Nmedia</string>
     <string name="nmedia">Нмедиа!</string>
+    <string name="remove">Удалить</string>
 </resources>

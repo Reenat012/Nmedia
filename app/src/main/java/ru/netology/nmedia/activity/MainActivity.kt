@@ -18,20 +18,16 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         val viewModel: PostViewModel by viewModels()
-        val adapter = PostAdapter({ viewModel.likeById(it.id) }, { viewModel.repost(it.id) })
+        val adapter = PostAdapter(
+            { viewModel.likeById(it.id) },
+            { viewModel.repost(it.id) },
+            { viewModel.removeById(it.id)})
         binding.list.adapter = adapter
         viewModel.data.observe(this) { posts ->
             adapter.submitList(posts) //при каждом изменении данных мы список постов записываем обновленный список постов
         }
 
 
-        /*binding.ivLikes.setOnClickListener {
-            viewModel.like()
-        }
-
-        binding.ivRepost.setOnClickListener {
-            viewModel.repost()
-        }*/
     }
 }
 

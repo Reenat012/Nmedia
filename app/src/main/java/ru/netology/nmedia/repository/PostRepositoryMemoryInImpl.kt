@@ -51,4 +51,9 @@ class PostRepositoryMemoryInImpl : PostRepository {
         posts = posts.map { if (it.id != id) it else it.copy(likedByMe = !it.likedByMe, likes = if (!it.likedByMe) it.likes + 1 else it.likes - 1) }
         data.value = posts
     }
+
+    override fun removeById(id: Long) {
+        posts = posts.filter { it.id != id } //оставляем только те посты, id которых не равны удаленному
+        data.value = posts
+    }
 }
