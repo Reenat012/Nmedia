@@ -56,4 +56,16 @@ class PostRepositoryMemoryInImpl : PostRepository {
         posts = posts.filter { it.id != id } //оставляем только те посты, id которых не равны удаленному
         data.value = posts
     }
+
+    private var nextId: Long = 0
+    override fun save(post: Post) {
+        posts = listOf(
+            post.copy(
+                id = nextId++,
+                author = "Me",
+                published = "Now"
+            )
+        ) + posts
+        data.value = posts
+    }
 }
