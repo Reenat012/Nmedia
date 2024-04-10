@@ -12,6 +12,7 @@ import ru.netology.nmedia.R.drawable.like_svgrepo_com__1_
 import ru.netology.nmedia.WallService
 import ru.netology.nmedia.adapter.PostAdapter
 import ru.netology.nmedia.databinding.ActivityMainBinding
+import ru.netology.nmedia.util.AndroidUtils
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -26,7 +27,12 @@ class MainActivity : AppCompatActivity() {
             { viewModel.removeById(it.id) })
         binding.list.adapter = adapter
         viewModel.data.observe(this) { posts ->
-            adapter.submitList(posts) //при каждом изменении данных мы список постов записываем обновленный список постов
+            val newPost = posts.size > adapter.currentList.size
+            adapter.submitList(posts) {
+                if (newPost) {
+                    binding.list.smoothScrollToPosition(0) //сверху сразу будет отображаться новый пост
+                }
+            } //при каждом изменении данных мы список постов записываем обновленный список постов
         }
         binding.buttonSave.setOnClickListener {
             with(binding.content) {
@@ -39,6 +45,12 @@ class MainActivity : AppCompatActivity() {
 
                 viewModel.changeContent(content)
                 viewModel.save()
+
+                binding.content.clearFocus() //убираем мигающий курсор
+                binding.content.setText("") //удаляем текст после добавления
+
+
+                AndroidUtils.hideKeyboard(binding.content) //убираем клавиатуру после добавления поста
             }
         }
 
