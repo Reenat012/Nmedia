@@ -4,15 +4,18 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.viewModels
+import ru.netology.nmedia.Post
 import ru.netology.nmedia.PostCardLayout
 import ru.netology.nmedia.R
 import ru.netology.nmedia.viewmodel.PostViewModel
 import ru.netology.nmedia.R.drawable.like_svgrepo_com
 import ru.netology.nmedia.R.drawable.like_svgrepo_com__1_
 import ru.netology.nmedia.WallService
+import ru.netology.nmedia.adapter.OnInteractionListener
 import ru.netology.nmedia.adapter.PostAdapter
 import ru.netology.nmedia.databinding.ActivityMainBinding
 import ru.netology.nmedia.util.AndroidUtils
+import ru.netology.nmedia.util.focusAndShowKeyboard
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -21,10 +24,23 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         val viewModel: PostViewModel by viewModels()
-        val adapter = PostAdapter(
-            { viewModel.likeById(it.id) },
-            { viewModel.repost(it.id) },
-            { viewModel.removeById(it.id) })
+        val adapter = PostAdapter(object : OnInteractionListener {
+            override fun onEdit(post: Post) {
+                viewModel.edit(post)
+            }
+
+            override fun onLike(post: Post) {
+                viewModel.likeById(post.id)
+            }
+
+            override fun onRemove(post: Post) {
+                viewModel.removeById(post.id)
+            }
+
+            override fun onRepost(post: Post) {
+                viewModel.repost(post.id)
+            }
+        })
         binding.list.adapter = adapter
         viewModel.data.observe(this) { posts ->
             val newPost = posts.size > adapter.currentList.size
@@ -34,6 +50,14 @@ class MainActivity : AppCompatActivity() {
                 }
             } //при каждом изменении данных мы список постов записываем обновленный список постов
         }
+
+        viewModel.edited.observe(this) {
+            if (it.id != 0L) {
+                binding.content.setText(it.content) //устанавливаем в поле ввода текст редактированного поста
+                binding.content.focusAndShowKeyboard() //клавиатура будет появляться сама при редактировании поста
+            }
+        }
+
         binding.buttonSave.setOnClickListener {
             with(binding.content) {
                 val content = binding.content.text.toString() //получаем введенный текст
@@ -43,8 +67,7 @@ class MainActivity : AppCompatActivity() {
                     return@setOnClickListener //выходим из метода
                 }
 
-                viewModel.changeContent(content)
-                viewModel.save()
+                viewModel.changeContentAndSave(content)
 
                 binding.content.clearFocus() //убираем мигающий курсор
                 binding.content.setText("") //удаляем текст после добавления

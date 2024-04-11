@@ -12,13 +12,18 @@ import ru.netology.nmedia.R.menu
 import ru.netology.nmedia.WallService
 import ru.netology.nmedia.databinding.ActivityPostCardLayoutBinding
 
+interface OnInteractionListener {
+    fun onLike(post: Post)
+    fun onRepost(post: Post)
+    fun onRemove(post: Post)
+    fun onEdit(post: Post)
+}
+
 typealias OnListener = (post: Post) -> Unit //можем вводить новые константы для типов, которые хотим использовать
 typealias OnRemoveListener = (post: Post) -> Unit
 
 class PostAdapter(
-    private val onLikeListener: OnListener,
-    private val onRepostListener: OnListener,
-    private val onRemoveListener: OnRemoveListener
+    private val onInteractionListener: OnInteractionListener
 ) : ListAdapter<Post, PostViewHolder>(PostDiffUtil) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PostViewHolder {
         val binding = ActivityPostCardLayoutBinding.inflate(
@@ -26,7 +31,7 @@ class PostAdapter(
             parent,
             false
         )
-        return PostViewHolder(binding, onLikeListener, onRepostListener, onRemoveListener)
+        return PostViewHolder(binding, onInteractionListener)
     }
 
     override fun onBindViewHolder(holder: PostViewHolder, position: Int) {
@@ -36,9 +41,7 @@ class PostAdapter(
 
 class PostViewHolder(
     private val binding: ActivityPostCardLayoutBinding,
-    private val onLikeListener: OnListener,
-    private val onRepostListener: OnListener,
-    private val onRemoveListener: OnRemoveListener
+    private val onLInteractionListener: OnInteractionListener
 ) : RecyclerView.ViewHolder(binding.root) {
     private val service = WallService()
     fun bind(post: Post) =
@@ -51,10 +54,10 @@ class PostViewHolder(
                 if (post.likedByMe) R.drawable.like_svgrepo_com__1_ else R.drawable.like_svgrepo_com
             )
             ivLikes.setOnClickListener {
-                onLikeListener(post)
+                onLInteractionListener.onLike(post)
             }
             ivRepost.setOnClickListener {
-                onRepostListener(post)
+                onLInteractionListener.onRepost(post)
             }
             ivMenu.setOnClickListener {
                 PopupMenu(it.context, it).apply {//все, что внутри функции apply вызываются на объекте
@@ -62,8 +65,12 @@ class PostViewHolder(
                     inflate(R.menu.options_post)
                     setOnMenuItemClickListener {item ->
                         when (item.itemId) {
-                            R.id.remove -> {
-                                onRemoveListener(post)
+                            R.id.menu_edit -> {
+                                onLInteractionListener.onEdit(post)
+                                true
+                            }
+                            R.id.menu_remove -> {
+                                onLInteractionListener.onRemove(post)
                                 true
                             } else -> false
                         }
