@@ -59,13 +59,17 @@ class PostRepositoryMemoryInImpl : PostRepository {
 
     private var nextId: Long = 0
     override fun save(post: Post) {
-        posts = listOf(
+        posts = if (post.id == 0L) { //при id = 0 сохраняем новый пост
+            listOf(
             post.copy(
                 id = nextId++,
                 author = "Me",
                 published = "Now"
             )
-        ) + posts
+        ) + posts}
+        else { //при id равному id другого поста редактируем пост с равным id
+            posts.map { if (post.id == it.id) it.copy(content = post.content) else it }
+        }
         data.value = posts
     }
 }

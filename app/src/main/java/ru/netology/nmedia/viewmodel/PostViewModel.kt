@@ -18,25 +18,24 @@ class PostViewModel : ViewModel() {
     private val repository: PostRepository = PostRepositoryMemoryInImpl()
     val data = repository.getAll()
     val edited = MutableLiveData(empty) //хранит состояние редактированного поста
-    fun save() {
-        //если в edited что то есть вызываем метод save у repository
-        edited.value?.let {
-            repository.save(it)
-        }
-        edited.value = empty
-    }
-
-    fun changeContent(text: String) {
+    fun changeContentAndSave(text: String) {
         edited.value?.let {
             if (it.content != text.trim()) { //проверяем не равен ли существующий текст вновь введенному (trim - без учета пробелом)
-                edited.value = it.copy(content = text)
+                repository.save(it.copy(content = text))
             }
+            edited.value = empty
         }
+    }
 
+    fun cancelChangeContent(post: Post) {
+        edited.value = empty
     }
 
     fun repost(id: Long) = repository.repost(id)
     fun likeById(id: Long) = repository.likeById(id)
     fun removeById(id: Long) = repository.removeById(id)
+    fun edit(post: Post) {
+        edited.value = post //редактируемый пост записываем в LiveData edited
+    }
 }
 

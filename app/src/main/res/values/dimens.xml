@@ -11,4 +11,5 @@
     <dimen name="ic_save">40dp</dimen>
     <dimen name="padding_ic_save">6dp</dimen>
     <dimen name="padding_save">12dp</dimen>
+    <dimen name="padding_edit_content">4dp</dimen>
 </resources>
