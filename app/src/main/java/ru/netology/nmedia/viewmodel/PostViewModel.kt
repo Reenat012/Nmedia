@@ -25,7 +25,10 @@ class PostViewModel : ViewModel() {
             }
             edited.value = empty
         }
+    }
 
+    fun cancelChangeContent(post: Post) {
+        edited.value = empty
     }
 
     fun repost(id: Long) = repository.repost(id)
@@ -33,7 +36,6 @@ class PostViewModel : ViewModel() {
     fun removeById(id: Long) = repository.removeById(id)
     fun edit(post: Post) {
         edited.value = post //редактируемый пост записываем в LiveData edited
-
     }
 }
 

@@ -53,4 +53,65 @@
         app:barrierDirection="top"
         app:constraint_referenced_ids="content, button_save"></androidx.constraintlayout.widget.Barrier>
 
+    <ImageView
+        android:id="@+id/iv_window_edit"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/ic_save"
+        android:background="@android:color/background_light"
+        app:layout_constraintBottom_toTopOf="@id/button_save">
+    </ImageView>
+
+    <ImageView
+        android:id="@+id/iv_edit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/edit_alt_2_svgrepo_com"
+        app:layout_constraintBottom_toTopOf="@id/button_save"
+        app:layout_constraintStart_toStartOf="parent">
+    </ImageView>
+
+    <ImageButton
+        android:id="@+id/button_cancel_edit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/cancel2_svgrepo_com"
+        android:background="@android:color/transparent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/button_save">
+    </ImageButton>
+
+    <TextView
+        android:id="@+id/tv_edit_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Edit content"
+        app:layout_constraintStart_toEndOf="@id/iv_edit"
+        app:layout_constraintTop_toTopOf="@id/iv_edit"
+        android:fontFamily="@font/teodebasicregular"
+        android:paddingStart="@dimen/padding_edit_content"
+        >
+    </TextView>
+
+    <TextView
+        android:id="@+id/tv_clone_edit_content"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:text=""
+        app:layout_constraintStart_toEndOf="@id/iv_edit"
+        app:layout_constraintTop_toBottomOf="@id/tv_edit_content"
+        android:typeface="monospace"
+        android:paddingStart="@dimen/padding_edit_content"
+        >
+    </TextView>
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/group"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@id/button_save"
+        app:layout_constraintStart_toStartOf="parent"
+        app:constraint_referenced_ids="tv_clone_edit_content, tv_edit_content, button_cancel_edit, iv_window_edit, iv_edit" />
 </androidx.constraintlayout.widget.ConstraintLayout>

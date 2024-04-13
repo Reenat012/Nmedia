@@ -2,8 +2,10 @@ package ru.netology.nmedia.activity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
+import androidx.constraintlayout.widget.Group
 import ru.netology.nmedia.Post
 import ru.netology.nmedia.PostCardLayout
 import ru.netology.nmedia.R
@@ -22,6 +24,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         val binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        val group = findViewById<Group>(R.id.group) //теперь имеем возможность обращаться к группе элементов
 
         val viewModel: PostViewModel by viewModels()
         val adapter = PostAdapter(object : OnInteractionListener {
@@ -53,6 +57,8 @@ class MainActivity : AppCompatActivity() {
 
         viewModel.edited.observe(this) {
             if (it.id != 0L) {
+                group.visibility = View.VISIBLE //виджет редактирования  появляется на экране
+                binding.tvCloneEditContent.setText(it.content) //устанавливаем в нижнее поле с текстом текст контента
                 binding.content.setText(it.content) //устанавливаем в поле ввода текст редактированного поста
                 binding.content.focusAndShowKeyboard() //клавиатура будет появляться сама при редактировании поста
             }
@@ -60,6 +66,8 @@ class MainActivity : AppCompatActivity() {
 
         binding.buttonSave.setOnClickListener {
             with(binding.content) {
+
+
                 val content = binding.content.text.toString() //получаем введенный текст
                 if (content.isBlank()) { //если поле пустое
                     Toast.makeText(this@MainActivity, R.string.empty, Toast.LENGTH_SHORT)
@@ -72,12 +80,17 @@ class MainActivity : AppCompatActivity() {
                 binding.content.clearFocus() //убираем мигающий курсор
                 binding.content.setText("") //удаляем текст после добавления
 
-
                 AndroidUtils.hideKeyboard(binding.content) //убираем клавиатуру после добавления поста
             }
         }
 
 
+
+        binding.buttonCancelEdit.setOnClickListener {
+            binding.content.setText("") //удаляем текст после добавления
+            AndroidUtils.hideKeyboard(binding.content) //убираем клавиатуру после добавления поста
+            group.visibility = View.GONE
+        }
     }
 }
 
