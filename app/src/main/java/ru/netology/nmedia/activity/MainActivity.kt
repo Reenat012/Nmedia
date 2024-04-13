@@ -39,6 +39,9 @@ class MainActivity : AppCompatActivity() {
 
             override fun onRemove(post: Post) {
                 viewModel.removeById(post.id)
+                binding.content.setText("") //удаляем текст после добавления
+                AndroidUtils.hideKeyboard(binding.content) //убираем клавиатуру после добавления поста
+                group.visibility = View.GONE
             }
 
             override fun onRepost(post: Post) {
@@ -66,8 +69,6 @@ class MainActivity : AppCompatActivity() {
 
         binding.buttonSave.setOnClickListener {
             with(binding.content) {
-
-
                 val content = binding.content.text.toString() //получаем введенный текст
                 if (content.isBlank()) { //если поле пустое
                     Toast.makeText(this@MainActivity, R.string.empty, Toast.LENGTH_SHORT)
@@ -83,8 +84,6 @@ class MainActivity : AppCompatActivity() {
                 AndroidUtils.hideKeyboard(binding.content) //убираем клавиатуру после добавления поста
             }
         }
-
-
 
         binding.buttonCancelEdit.setOnClickListener {
             binding.content.setText("") //удаляем текст после добавления
