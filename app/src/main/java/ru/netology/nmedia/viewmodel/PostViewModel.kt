@@ -27,8 +27,8 @@ class PostViewModel : ViewModel() {
         }
     }
 
-    fun cancelChangeContent(post: Post) {
-        edited.value = empty
+    fun cancelChangeContent() {
+        edited.value = empty //удаляем редактированный пост из поля для редактирования
     }
 
     fun repost(id: Long) = repository.repost(id)

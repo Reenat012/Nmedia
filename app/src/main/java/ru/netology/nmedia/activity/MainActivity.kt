@@ -86,6 +86,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         binding.buttonCancelEdit.setOnClickListener {
+            viewModel.cancelChangeContent() //функция отмены редактирования
             binding.content.setText("") //удаляем текст после добавления
             AndroidUtils.hideKeyboard(binding.content) //убираем клавиатуру после добавления поста
             group.visibility = View.GONE
