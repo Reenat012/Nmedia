@@ -50,9 +50,9 @@ class PostViewHolder(
             tvPublished.text = post.published
             tvContent.text = post.content
             tvRepost.text = post.countReposts.toString()
-            ivLikes.setImageResource(
-                if (post.likedByMe) R.drawable.like_svgrepo_com__1_ else R.drawable.like_svgrepo_com
-            )
+
+            ivLikes.isChecked = post.likedByMe //следим за состоянием параметра likedByMe
+
             ivLikes.setOnClickListener {
                 onLInteractionListener.onLike(post)
             }
