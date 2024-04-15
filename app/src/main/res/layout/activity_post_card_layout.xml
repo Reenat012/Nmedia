@@ -10,12 +10,12 @@
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/iv_menu"
+        style="@style/Widget.AppTheme.IconButton"
         android:layout_width="@dimen/icons_size"
         android:layout_height="@dimen/icons_size"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/baseline_more_vert_24"
-        style="@style/Widget.AppTheme.IconButton"/>
+        app:icon="@drawable/baseline_more_vert_24" />
 
     <ImageView
         android:id="@+id/iv_avatar"
@@ -35,11 +35,11 @@
         android:layout_marginStart="@dimen/margin_start"
         android:ellipsize="end"
         android:lines="1"
+        android:text="@string/author"
         app:layout_constraintBottom_toTopOf="@id/tv_published"
         app:layout_constraintEnd_toStartOf="@id/iv_menu"
         app:layout_constraintStart_toEndOf="@id/iv_avatar"
-        app:layout_constraintTop_toTopOf="@id/iv_avatar"
-        android:text="@string/author" />
+        app:layout_constraintTop_toTopOf="@id/iv_avatar" />
 
 
     <TextView
@@ -47,11 +47,11 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/margin_start"
+        android:text="@string/published"
         app:layout_constraintBottom_toBottomOf="@id/iv_avatar"
         app:layout_constraintEnd_toStartOf="@id/iv_menu"
         app:layout_constraintStart_toEndOf="@id/iv_avatar"
-        app:layout_constraintTop_toBottomOf="@id/tv_author"
-        android:text="@string/published" />
+        app:layout_constraintTop_toBottomOf="@id/tv_author" />
 
     <androidx.constraintlayout.widget.Barrier
         android:id="@+id/barrier_top"
@@ -66,9 +66,9 @@
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/margin_start"
         android:layout_marginTop="@dimen/margin_start"
+        android:text="@string/content"
         app:layout_constraintBottom_toBottomOf="@id/barrier_bottom"
-        app:layout_constraintTop_toBottomOf="@id/barrier_top"
-        android:text="@string/content" />
+        app:layout_constraintTop_toBottomOf="@id/barrier_top" />
 
     <androidx.constraintlayout.widget.Barrier
         android:id="@+id/barrier_bottom"
@@ -80,64 +80,66 @@
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/iv_likes"
+        style="@style/Widget.AppTheme.LikeButton"
+        android:checkable="true"
         android:layout_width="@dimen/icons_size"
         android:layout_height="@dimen/icons_size"
         android:layout_marginTop="@dimen/margin_start"
+        app:icon="@drawable/ic_like_24dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/barrier_bottom"
-        android:button="@drawable/ic_like_24dp"
-        style="@style/Widget.AppTheme.IconButton"/>
         />
 
     <TextView
         android:id="@+id/tv_likes"
-        android:text="@string/likes"
         android:layout_width="@dimen/size_likes"
         android:layout_height="@dimen/size_likes"
-        app:layout_constraintStart_toEndOf="@id/iv_likes"
-        app:layout_constraintTop_toBottomOf="@id/barrier_bottom"
         android:layout_margin="@dimen/margin_start"
-        android:ellipsize="end"/>
+        android:ellipsize="end"
+        android:text="@string/likes"
+        app:layout_constraintStart_toEndOf="@id/iv_likes"
+        app:layout_constraintTop_toBottomOf="@id/barrier_bottom" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/iv_repost"
+        style="@style/Widget.AppTheme.IconButton"
         android:layout_width="@dimen/icons_size"
         android:layout_height="@dimen/icons_size"
-        app:srcCompat="@drawable/share_svgrepo_com"
-        app:layout_constraintStart_toEndOf="@id/tv_likes"
-        app:layout_constraintTop_toBottomOf="@id/barrier_bottom"
         android:layout_margin="@dimen/margin_start"
         android:contentDescription="@string/description_share"
-        style="@style/Widget.AppTheme.LikeCheckBox"/>
-/>
+        app:layout_constraintStart_toEndOf="@id/tv_likes"
+        app:layout_constraintTop_toBottomOf="@id/barrier_bottom"
+        app:icon="@drawable/share_svgrepo_com"
+    />
+
 
     <TextView
         android:id="@+id/tv_repost"
         android:layout_width="@dimen/size_likes"
         android:layout_height="@dimen/size_likes"
+        android:layout_margin="@dimen/margin_start"
+        android:ellipsize="end"
         android:text="@string/repost"
         app:layout_constraintStart_toEndOf="@id/iv_repost"
-        app:layout_constraintTop_toBottomOf="@id/barrier_bottom"
-        android:layout_margin="@dimen/margin_start"
-        android:ellipsize="end"/>
+        app:layout_constraintTop_toBottomOf="@id/barrier_bottom" />
 
     <TextView
         android:id="@+id/tv_views"
         android:layout_width="@dimen/size_likes"
         android:layout_height="@dimen/size_likes"
+        android:layout_margin="@dimen/margin_start"
+        android:ellipsize="end"
         android:text="@string/views"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/barrier_bottom"
-        android:layout_margin="@dimen/margin_start"
-        android:ellipsize="end"/>
+        app:layout_constraintTop_toBottomOf="@id/barrier_bottom" />
 
     <ImageView
         android:id="@+id/iv_views"
         android:layout_width="@dimen/icons_size"
         android:layout_height="@dimen/icons_size"
-        app:srcCompat="@android:drawable/ic_menu_view"
+        android:layout_margin="@dimen/margin_start"
         app:layout_constraintEnd_toStartOf="@id/tv_views"
         app:layout_constraintTop_toBottomOf="@id/barrier_bottom"
-        android:layout_margin="@dimen/margin_start" />
+        app:srcCompat="@android:drawable/ic_menu_view" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
