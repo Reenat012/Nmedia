@@ -81,47 +81,31 @@
     <com.google.android.material.button.MaterialButton
         android:id="@+id/iv_likes"
         style="@style/Widget.AppTheme.LikeButton"
-        android:checkable="true"
-        android:layout_width="@dimen/icons_size"
-        android:layout_height="@dimen/icons_size"
+        android:layout_width="@dimen/icons_width"
+        android:layout_height="@dimen/icons_height"
+        app:iconSize="@dimen/icons_size"
         android:layout_marginTop="@dimen/margin_start"
+        android:checkable="true"
+        android:text=""
         app:icon="@drawable/ic_like_24dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/barrier_bottom"
-        />
 
-    <TextView
-        android:id="@+id/tv_likes"
-        android:layout_width="@dimen/size_likes"
-        android:layout_height="@dimen/size_likes"
-        android:layout_margin="@dimen/margin_start"
-        android:ellipsize="end"
-        android:text="@string/likes"
-        app:layout_constraintStart_toEndOf="@id/iv_likes"
         app:layout_constraintTop_toBottomOf="@id/barrier_bottom" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/iv_repost"
         style="@style/Widget.AppTheme.IconButton"
-        android:layout_width="@dimen/icons_size"
-        android:layout_height="@dimen/icons_size"
+        android:layout_width="@dimen/icons_width"
+        android:layout_height="@dimen/icons_height"
         android:layout_margin="@dimen/margin_start"
+        app:iconSize="@dimen/icons_size"
         android:contentDescription="@string/description_share"
-        app:layout_constraintStart_toEndOf="@id/tv_likes"
-        app:layout_constraintTop_toBottomOf="@id/barrier_bottom"
+        android:text=""
         app:icon="@drawable/share_svgrepo_com"
-    />
+        app:layout_constraintTop_toBottomOf="@id/barrier_bottom"
+        app:layout_constraintStart_toEndOf="@id/iv_likes"
+        tools:layout_editor_absoluteX="140dp" />
 
-
-    <TextView
-        android:id="@+id/tv_repost"
-        android:layout_width="@dimen/size_likes"
-        android:layout_height="@dimen/size_likes"
-        android:layout_margin="@dimen/margin_start"
-        android:ellipsize="end"
-        android:text="@string/repost"
-        app:layout_constraintStart_toEndOf="@id/iv_repost"
-        app:layout_constraintTop_toBottomOf="@id/barrier_bottom" />
 
     <TextView
         android:id="@+id/tv_views"

@@ -16,6 +16,7 @@ import ru.netology.nmedia.WallService
 import ru.netology.nmedia.adapter.OnInteractionListener
 import ru.netology.nmedia.adapter.PostAdapter
 import ru.netology.nmedia.databinding.ActivityMainBinding
+import ru.netology.nmedia.databinding.ActivityPostCardLayoutBinding
 import ru.netology.nmedia.util.AndroidUtils
 import ru.netology.nmedia.util.focusAndShowKeyboard
 
@@ -91,6 +92,8 @@ class MainActivity : AppCompatActivity() {
             AndroidUtils.hideKeyboard(binding.content) //убираем клавиатуру после добавления поста
             group.visibility = View.GONE
         }
+
+
     }
 }
 

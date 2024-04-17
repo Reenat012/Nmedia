@@ -49,15 +49,20 @@ class PostViewHolder(
             tvAuthor.text = post.author
             tvPublished.text = post.published
             tvContent.text = post.content
-            tvRepost.text = post.countReposts.toString()
-
-            ivLikes.isChecked = post.likedByMe //следим за состоянием параметра likedByMe
+            //следим за состоянием параметра likedByMe
+            ivLikes.isChecked = post.likedByMe
+            //текст будет записываться в атрибут text MaterialButton
+            ivLikes.text = service.amount(post.likes)
+            ivRepost.text = service.amount(post.reposts)
 
             ivLikes.setOnClickListener {
                 onLInteractionListener.onLike(post)
+
             }
             ivRepost.setOnClickListener {
                 onLInteractionListener.onRepost(post)
+                //текст будет записываться в атрибут text MaterialButton
+
             }
             ivMenu.setOnClickListener {
                 PopupMenu(it.context, it).apply {//все, что внутри функции apply вызываются на объекте
@@ -78,8 +83,10 @@ class PostViewHolder(
 
                 }.show()
             }
-            tvLikes.text = service.amount(post.likes)
-            tvRepost.text = service.amount(post.reposts)
+
+
+
+
         }
 }
 

@@ -5,11 +5,13 @@
     <dimen name="indent_dimension">5dp</dimen>
     <dimen name="margin_start">10dp</dimen>
     <dimen name="common_spacing">10dp</dimen>
-    <dimen name="icons_size">24dp</dimen>
+    <dimen name="icons_size">32dp</dimen>
     <dimen name="size_likes">32dp</dimen>
     <dimen name="padding">16dp</dimen>
     <dimen name="ic_save">40dp</dimen>
     <dimen name="padding_ic_save">6dp</dimen>
     <dimen name="padding_save">12dp</dimen>
     <dimen name="padding_edit_content">4dp</dimen>
+    <dimen name="icons_width">80dp</dimen>
+    <dimen name="icons_height">32dp</dimen>
 </resources>
