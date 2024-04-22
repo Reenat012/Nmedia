@@ -23,4 +23,12 @@
         <item name="android:padding">0dp</item>
     </style>
 
+    <style name="MyBottomAppBar" parent="Widget.MaterialComponents.BottomAppBar.Colored">
+        <item name="backgroundTint">@color/Gainsboro</item>
+    </style>
+
+    <style name="MyBottomAppBarIcon" parent="Widget.MaterialComponents.BottomAppBar.Colored">
+        <item name="backgroundTint">@color/Gray</item>
+    </style>
+
 </resources>

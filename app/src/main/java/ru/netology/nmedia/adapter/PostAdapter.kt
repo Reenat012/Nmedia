@@ -61,7 +61,7 @@ class PostViewHolder(
             }
             ivRepost.setOnClickListener {
                 onLInteractionListener.onRepost(post)
-                //текст будет записываться в атрибут text MaterialButton
+
 
             }
             ivMenu.setOnClickListener {
