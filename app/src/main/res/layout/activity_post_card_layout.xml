@@ -64,17 +64,18 @@
         android:id="@+id/tv_content"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/margin_start"
         android:layout_marginTop="@dimen/margin_start"
         android:text="@string/content"
-        app:layout_constraintBottom_toBottomOf="@id/barrier_bottom"
-        app:layout_constraintTop_toBottomOf="@id/barrier_top" />
+        app:layout_constraintBottom_toTopOf="@id/video_view"
+        app:layout_constraintTop_toBottomOf="@id/barrier_top"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteX="16dp" />
 
     <androidx.constraintlayout.widget.Barrier
         android:id="@+id/barrier_bottom"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/margin_start"
+        android:layout_marginTop="@dimen/padding"
         app:barrierDirection="bottom"
         app:constraint_referenced_ids="tv_content" />
 
@@ -125,5 +126,43 @@
         app:layout_constraintEnd_toStartOf="@id/tv_views"
         app:layout_constraintTop_toBottomOf="@id/barrier_bottom"
         app:srcCompat="@android:drawable/ic_menu_view" />
+
+    <VideoView
+        android:id="@+id/video_view"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/size_video_view"
+        app:layout_constraintTop_toBottomOf="@id/tv_content"
+        app:layout_constraintBottom_toTopOf="@id/tv_video_published"
+        android:layout_marginTop="@dimen/padding"
+        android:layout_marginBottom="@dimen/padding"
+       ></VideoView>
+
+    <TextView
+        android:id="@+id/tv_video_published"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:layout_marginTop="@dimen/padding"
+        app:layout_constraintTop_toBottomOf="@id/video_view"
+        ></TextView>
+
+    <TextView
+        android:id="@+id/tv_video_views"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/padding"
+        android:layout_marginBottom="@dimen/padding"
+        android:text=""
+        app:layout_constraintTop_toBottomOf="@id/tv_video_published"
+        app:layout_constraintBottom_toTopOf="@id/barrier_bottom"
+        ></TextView>
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/group_video"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:constraint_referenced_ids="video_view, tv_video_published, tv_video_views"
+        ></androidx.constraintlayout.widget.Group>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

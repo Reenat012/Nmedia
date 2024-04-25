@@ -38,7 +38,7 @@ class NewPostActivity : AppCompatActivity() {
 
 object NewPostContract : ActivityResultContract<String, String?>() {
     override fun createIntent(context: Context, input: String): Intent =
-        Intent(context, NewPostActivity::class.java)
+        Intent(context, NewPostActivity::class.java).putExtra("content", input)
 
     override fun parseResult(resultCode: Int, intent: Intent?) =
         intent?.getStringExtra(Intent.EXTRA_TEXT)

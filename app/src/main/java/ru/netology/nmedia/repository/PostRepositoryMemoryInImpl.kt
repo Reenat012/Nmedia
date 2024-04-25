@@ -1,23 +1,27 @@
 package ru.netology.nmedia.repository
 
+import android.net.Uri
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import ru.netology.nmedia.Post
 
 class PostRepositoryMemoryInImpl : PostRepository {
+
+    private var nextId: Long = 0
     private var posts = listOf(
         Post(
-            id = 1,
+            id = nextId++,
             author = "Нетология. Университет интернет-профессий будущего",
             content = "Привет, это новая Нетология! Когда-то Нетология начиналась с интенсивов по онлайн-маркетингу. Затем появились курсы по дизайну, разработке, аналитике и управлению. Мы растём сами и помогаем расти студентам: от новичков до уверенных профессионалов. Но самое важное остаётся с нами: мы верим, что в каждом уже есть сила, которая заставляет хотеть больше, целиться выше, бежать быстрее. Наша миссия — помочь встать на путь роста и начать цепочку перемен → http://netolo.gy/fyb",
             published = "21 мая в 18:36",
             likedByMe = false,
             likes = 999,
             reposts = 999,
-            views = 3_123_123
+            views = 3_123_123,
+            video = Uri.parse("http://www.youtube.com/watch?v=8PORS-t9oOM")
         ),
         Post(
-            id = 2,
+            id = nextId++,
             author = "Нетология",
             content = "Когда-то Нетология начиналась с интенсивов по онлайн-маркетингу. Затем появились курсы по дизайну, разработке, аналитике и управлению. Мы растём сами и помогаем расти студентам: от новичков до уверенных профессионалов. Но самое важное остаётся с нами: мы верим, что в каждом уже есть сила, которая заставляет хотеть больше, целиться выше, бежать быстрее. Наша миссия — помочь встать на путь роста и начать цепочку перемен → http://netolo.gy/fyb",
             published = "21 мая в 18:36",
@@ -27,7 +31,7 @@ class PostRepositoryMemoryInImpl : PostRepository {
             views = 3_123_123
         ),
         Post(
-            id = 3,
+            id = nextId++,
             author = "Hello",
             content = "Когда-то Нетология начиналась с интенсивов по онлайн-маркетингу. Затем появились курсы по дизайну, разработке, аналитике и управлению. Мы растём сами и помогаем расти студентам: от новичков до уверенных профессионалов. Но самое важное остаётся с нами: мы верим, что в каждом уже есть сила, которая заставляет хотеть больше, целиться выше, бежать быстрее. Наша миссия — помочь встать на путь роста и начать цепочку перемен → http://netolo.gy/fyb",
             published = "21 мая в 18:36",
@@ -57,7 +61,7 @@ class PostRepositoryMemoryInImpl : PostRepository {
         data.value = posts
     }
 
-    private var nextId: Long = 0
+
     override fun save(post: Post) {
         posts = if (post.id == 0L) { //при id = 0 сохраняем новый пост
             listOf(

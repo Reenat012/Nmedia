@@ -1,10 +1,14 @@
 package ru.netology.nmedia.activity
 
 import android.content.Intent
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.provider.MediaStore.Video
 import android.view.View
+import android.widget.TextView
 import android.widget.Toast
+import android.widget.VideoView
 import androidx.activity.result.launch
 import androidx.activity.viewModels
 import androidx.constraintlayout.widget.Group
@@ -29,7 +33,8 @@ class MainActivity : AppCompatActivity() {
         val binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val group = findViewById<Group>(R.id.group) //теперь имеем возможность обращаться к группе элементов
+        //теперь имеем возможность обращаться к группе элементов
+        val groupVideo = findViewById<Group>(R.id.group_video)
 
         val viewModel: PostViewModel by viewModels()
 
@@ -41,6 +46,7 @@ class MainActivity : AppCompatActivity() {
         val adapter = PostAdapter(object : OnInteractionListener {
             override fun onEdit(post: Post) {
                 viewModel.edit(post)
+                newPostLauncher.launch(post.content)
             }
 
             override fun onLike(post: Post) {
@@ -51,7 +57,7 @@ class MainActivity : AppCompatActivity() {
                 viewModel.removeById(post.id)
 //                binding.content.setText("") //удаляем текст после добавления
 //                AndroidUtils.hideKeyboard(binding.content) //убираем клавиатуру после добавления поста
-                group.visibility = View.GONE
+//                group.visibility = View.GONE
             }
 
             override fun onRepost(post: Post) {
@@ -68,6 +74,28 @@ class MainActivity : AppCompatActivity() {
 
                 //подсчет количества репостов
                 viewModel.repost(post.id)
+
+                //если поле video не пустое
+                if (post.video !== null) {
+                    //делаем видимой группу с элементами видео
+                    groupVideo.visibility = View.VISIBLE
+
+                    val nameVideo = findViewById<TextView>(R.id.tv_video_published)
+                    nameVideo.text = post.video.toString()
+
+                    val contentVideo = findViewById<VideoView>(R.id.video_view)
+
+                    contentVideo.setOnClickListener{
+
+                            val intent = Intent(Intent.ACTION_VIEW).apply {
+                                data = post.video
+                            }
+                            if (intent.resolveActivity(packageManager) != null) {
+                                startActivity(intent)
+
+                        }
+                    }
+                }
             }
         })
 
@@ -81,29 +109,9 @@ class MainActivity : AppCompatActivity() {
             } //при каждом изменении данных мы список постов записываем обновленный список постов
         }
 
-        viewModel.edited.observe(this) {
-            if (it.id != 0L) {
-                group.visibility = View.VISIBLE //виджет редактирования  появляется на экране
-                binding.tvCloneEditContent.setText(it.content) //устанавливаем в нижнее поле с текстом текст контента
-                //передаем из одной активити в другую
-                val intent = Intent(this@MainActivity, NewPostActivity::class.java)
-                intent.putExtra("content", it.content)
-                newPostLauncher.launch("content")
-//                binding.content.setText(it.content) //устанавливаем в поле ввода текст редактированного поста
-//                binding.content.focusAndShowKeyboard() //клавиатура будет появляться сама при редактировании поста
-            }
-        }
-
         binding.bottomSave.setOnClickListener {
             //обращаемся к контракту
             newPostLauncher.launch("")
-        }
-
-        binding.buttonCancelEdit.setOnClickListener {
-            viewModel.cancelChangeContent() //функция отмены редактирования
-//            binding.content.setText("") //удаляем текст после добавления
-//            AndroidUtils.hideKeyboard(binding.content) //убираем клавиатуру после добавления поста
-            group.visibility = View.GONE
         }
     }
 }
