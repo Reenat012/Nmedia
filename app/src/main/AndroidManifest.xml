@@ -28,7 +28,7 @@
             </intent-filter>
         </activity> <!-- свойство указывает доступно ли activity для других элементов -->
         <activity
-            android:name=".PostCardLayout"
+            android:name=".activity.PostCardLayout"
             android:exported="false" />
         <activity
             android:name=".activity.MainActivity"

@@ -1,31 +1,19 @@
 package ru.netology.nmedia.activity
 
 import android.content.Intent
-import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.provider.MediaStore.Video
 import android.view.View
 import android.widget.TextView
-import android.widget.Toast
 import android.widget.VideoView
-import androidx.activity.result.launch
 import androidx.activity.viewModels
 import androidx.constraintlayout.widget.Group
 import ru.netology.nmedia.Post
-import ru.netology.nmedia.PostCardLayout
 import ru.netology.nmedia.R
 import ru.netology.nmedia.viewmodel.PostViewModel
-import ru.netology.nmedia.R.drawable.like_svgrepo_com
-import ru.netology.nmedia.R.drawable.like_svgrepo_com__1_
-import ru.netology.nmedia.WallService
 import ru.netology.nmedia.adapter.OnInteractionListener
 import ru.netology.nmedia.adapter.PostAdapter
 import ru.netology.nmedia.databinding.ActivityMainBinding
-import ru.netology.nmedia.databinding.ActivityNewPostBinding
-import ru.netology.nmedia.databinding.ActivityPostCardLayoutBinding
-import ru.netology.nmedia.util.AndroidUtils
-import ru.netology.nmedia.util.focusAndShowKeyboard
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -74,29 +62,8 @@ class MainActivity : AppCompatActivity() {
 
                 //подсчет количества репостов
                 viewModel.repost(post.id)
-
-                //если поле video не пустое
-                if (post.video !== null) {
-                    //делаем видимой группу с элементами видео
-                    groupVideo.visibility = View.VISIBLE
-
-                    val nameVideo = findViewById<TextView>(R.id.tv_video_published)
-                    nameVideo.text = post.video.toString()
-
-                    val contentVideo = findViewById<VideoView>(R.id.video_view)
-
-                    contentVideo.setOnClickListener{
-
-                            val intent = Intent(Intent.ACTION_VIEW).apply {
-                                data = post.video
-                            }
-                            if (intent.resolveActivity(packageManager) != null) {
-                                startActivity(intent)
-
-                        }
-                    }
-                }
             }
+
         })
 
         binding.list.adapter = adapter

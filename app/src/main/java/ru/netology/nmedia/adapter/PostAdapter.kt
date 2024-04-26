@@ -1,8 +1,16 @@
 package ru.netology.nmedia.adapter
 
+import android.annotation.SuppressLint
+import android.content.Intent
+import android.net.Uri
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import android.widget.PopupMenu
+import android.widget.TextView
+import android.widget.VideoView
+import androidx.core.content.ContextCompat.getContextForLanguage
+import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -10,6 +18,7 @@ import ru.netology.nmedia.Post
 import ru.netology.nmedia.R
 import ru.netology.nmedia.R.menu
 import ru.netology.nmedia.WallService
+import ru.netology.nmedia.activity.PostCardLayout
 import ru.netology.nmedia.databinding.ActivityPostCardLayoutBinding
 
 interface OnInteractionListener {
@@ -44,6 +53,8 @@ class PostViewHolder(
     private val onLInteractionListener: OnInteractionListener
 ) : RecyclerView.ViewHolder(binding.root) {
     private val service = WallService()
+
+    @SuppressLint("QueryPermissionsNeeded")
     fun bind(post: Post) =
         binding.apply {
             tvAuthor.text = post.author
@@ -62,31 +73,46 @@ class PostViewHolder(
             ivRepost.setOnClickListener {
                 onLInteractionListener.onRepost(post)
 
-
             }
             ivMenu.setOnClickListener {
-                PopupMenu(it.context, it).apply {//все, что внутри функции apply вызываются на объекте
+                PopupMenu(
+                    it.context,
+                    it
+                ).apply {//все, что внутри функции apply вызываются на объекте
                     //на котором apply была вызвана, т.е. PopupMenu
                     inflate(R.menu.options_post)
-                    setOnMenuItemClickListener {item ->
+                    setOnMenuItemClickListener { item ->
                         when (item.itemId) {
                             R.id.menu_edit -> {
                                 onLInteractionListener.onEdit(post)
                                 true
                             }
+
                             R.id.menu_remove -> {
                                 onLInteractionListener.onRemove(post)
                                 true
-                            } else -> false
+                            }
+
+                            else -> false
                         }
                     }
 
                 }.show()
             }
 
+            if (post.video !== null) {
+                //делаем видимой группу с элементами видео
+                groupVideo.visibility = View.VISIBLE
+                tvVideoPublished.text = post.video.toString()
 
+                binding.videoView.setOnClickListener {
+                    val url = Uri.parse(binding.tvVideoPublished.toString())
+                    //создаем интент
+                    val intent = Intent(Intent.ACTION_VIEW, url)
 
-
+                    startActivity()
+                }
+            }
         }
 }
 
