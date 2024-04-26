@@ -22,6 +22,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         val binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        //выывыв
 
         //теперь имеем возможность обращаться к группе элементов
         val groupVideo = findViewById<Group>(R.id.group_video)
