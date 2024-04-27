@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import ru.netology.nmedia.Post
 import ru.netology.nmedia.R
+import ru.netology.nmedia.R.drawable.image_leo
 import ru.netology.nmedia.R.menu
 import ru.netology.nmedia.WallService
 import ru.netology.nmedia.activity.PostCardLayout
@@ -26,6 +27,7 @@ interface OnInteractionListener {
     fun onRepost(post: Post)
     fun onRemove(post: Post)
     fun onEdit(post: Post)
+    fun playVideoInUri(post: Post)
 }
 
 typealias OnListener = (post: Post) -> Unit //можем вводить новые константы для типов, которые хотим использовать
@@ -96,7 +98,6 @@ class PostViewHolder(
                             else -> false
                         }
                     }
-
                 }.show()
             }
 
@@ -104,14 +105,16 @@ class PostViewHolder(
                 //делаем видимой группу с элементами видео
                 groupVideo.visibility = View.VISIBLE
                 tvVideoPublished.text = post.video.toString()
+                videoView.setImageResource(R.drawable.image_leo)
+            }
 
-                binding.videoView.setOnClickListener {
-                    val url = Uri.parse(binding.tvVideoPublished.toString())
-                    //создаем интент
-                    val intent = Intent(Intent.ACTION_VIEW, url)
+            //TODO обработчик нажатия на видео
+            videoView.setOnClickListener {
+                onLInteractionListener.playVideoInUri(post)
+            }
 
-                    startActivity()
-                }
+            buttonPlay.setOnClickListener {
+                onLInteractionListener.playVideoInUri(post)
             }
         }
 }

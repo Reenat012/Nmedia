@@ -37,5 +37,9 @@ class PostViewModel : ViewModel() {
     fun edit(post: Post) {
         edited.value = post //редактируемый пост записываем в LiveData edited
     }
+
+    fun playVideo(post: Post) {
+        post.video
+    }
 }
 

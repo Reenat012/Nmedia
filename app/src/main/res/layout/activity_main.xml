@@ -30,14 +30,6 @@
         tools:ignore="MissingConstraints" />
 
 
-    <ImageView
-        android:id="@+id/iv_window_edit"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/ic_save"
-        android:background="@android:color/background_light"
-        app:layout_constraintBottom_toBottomOf="parent">
-    </ImageView>
-
 
 
 

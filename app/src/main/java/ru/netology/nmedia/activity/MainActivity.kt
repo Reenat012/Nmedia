@@ -1,6 +1,8 @@
 package ru.netology.nmedia.activity
 
+import android.annotation.SuppressLint
 import android.content.Intent
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -35,6 +37,17 @@ class MainActivity : AppCompatActivity() {
             override fun onEdit(post: Post) {
                 viewModel.edit(post)
                 newPostLauncher.launch(post.content)
+            }
+
+            @SuppressLint("QueryPermissionsNeeded")
+            override fun playVideoInUri(post: Post) {
+                viewModel.playVideo(post)
+                //получаем url
+                val url = post.video.toString()
+                //создаем интент
+                val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+
+                startActivity(intent)
             }
 
             override fun onLike(post: Post) {
