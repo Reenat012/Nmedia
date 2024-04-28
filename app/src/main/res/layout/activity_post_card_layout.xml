@@ -170,7 +170,7 @@
         android:id="@+id/group_video"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:visibility="visible"
+        android:visibility="gone"
         app:constraint_referenced_ids="button_play, video_view, tv_video_published, tv_video_views"></androidx.constraintlayout.widget.Group>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
