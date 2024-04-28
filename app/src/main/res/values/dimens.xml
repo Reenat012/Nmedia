@@ -15,4 +15,5 @@
     <dimen name="icons_width">80dp</dimen>
     <dimen name="icons_height">32dp</dimen>
     <dimen name="size_video_view">180dp</dimen>
+
 </resources>
